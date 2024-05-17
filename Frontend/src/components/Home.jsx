@@ -28,17 +28,17 @@ function Home() {
         responseType: "blob",
       }
     );
-    console.log(response.data)
+    // console.log(response.data)
       const url = window.URL.createObjectURL(new Blob([response.data]))
-      console.log(url)
+      // console.log(url)
       const link =document.createElement("a")
-      console.log(link)
+      // console.log(link)
       link.href=url;
-      console.log(link)
+      // console.log(link)
       link.setAttribute("download",selectedFile.name.replace(/\.[^/.]+$/,"")+".pdf")
-      console.log(link)
+      // console.log(link)
       document.body.appendChild(link)
-      console.log(link)
+      // console.log(link)
       link.click()
       link.parentNode.removeChild(link)
       setSelectedFile(null)
@@ -55,7 +55,7 @@ function Home() {
     }
   }
   return (
-    <div className='max-w-screen-2xl mx-auto container px-6 py-3 md:px-40'>
+    <div className='max-w-screen-2xl mx-auto container px-6 py-3 md:px-40  bg-blue-200'>
         <div className='flex h-screen items-center justify-center'>
             <div className='border-2 border-dashed px-4 py-2 md:px-8 md:py-6 border-indigo-400 rounded-lg shadow-lg'>
                 <h1 className='text-3xl font-bold text-center mg-4'>Convert Word To PDF</h1>
