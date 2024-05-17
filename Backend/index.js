@@ -17,11 +17,11 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
-app.post('/profile', upload.single('file'), (req, res, next) => {
+app.post('/convertFile', upload.single('file'), (req, res, next) => {
  try {
   if (!req.file) {
     return res.status(400).json({
-      message: "file not uploaded"
+      message: "file not uploaded",
     });
   }
 
@@ -30,16 +30,25 @@ app.post('/profile', upload.single('file'), (req, res, next) => {
   docxToPDF(req.file.path, outputPath,(err,result) => {
     if(err){
       console.log(err);
+      return res.status(500).json({
+        message: "Error converting docs to pdf",
+      });
     }
-    console.log('result'+result);
+    res.download(outputPath, ()=> {
+      console.log("File Downloaded");
+    })
+    
   });
   
 
  } catch (error) {
-    console.log(error)
+    console.log(error);
+    return res.status(500).json({
+      message: "Internal server Error!!",
+    });
  }
 })
 
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`)
+  console.log(`Server is listening on port ${port}`);
 })
